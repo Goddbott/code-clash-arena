@@ -52,11 +52,26 @@ const modes: GameMode[] = [
   },
   {
     icon: "🎯",
-    title: "Rapid Fire",
-    desc: "Answer MCQ questions faster than your opponent. 10 questions, 10 seconds each.",
+    title: "Rapid Fire MCQ",
+    subtitle: "Lightning-fast multiple choice battles",
+    desc: "Answer MCQ questions faster than your opponent.",
+    stats: [
+      { label: "Duration", value: "60 sec" },
+      { label: "Players", value: "1v1" },
+      { label: "Focus", value: "Speed + Knowledge" },
+      { label: "Rating", value: "ELO Based" }
+    ],
+    features: [
+      "10 MCQ questions in 60 seconds",
+      "DSA, System Design, AI/ML & Aptitude",
+      "Real-time scoring (+1 correct, -0.5 wrong)",
+      "Quick rounds (1-2 minutes)",
+      "ELO rating system",
+      "Fast-paced competitive gameplay"
+    ],
     players: 183,
     color: "cyan",
-    link: "/rapidfire",
+    link: "/game/rapidfire",
   },
   {
     icon: "🏆",

@@ -1,164 +1,149 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { StarsBackground } from "../components/StarsBackground";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
 const stats = [
-  { label: "Active Users", value: "52,847" },
-  { label: "Problems Solved Today", value: "18,432" },
-  { label: "Active Contests", value: "3" },
-  { label: "Live Players", value: "1,247" },
+  { label: "Problems Solved", value: "34", color: "pastel-mint" },
+  { label: "Current Streak", value: "5 Days", color: "pastel-yellow" },
+  { label: "Global Rank", value: "4,201", color: "pastel-lavender" },
+  { label: "Rating", value: "1250", color: "pastel-blue" },
 ];
 
-const features = [
-  { icon: "⚔️", title: "Contests", desc: "Weekly rated contests with ELO rating" },
-  { icon: "🎯", title: "Rapid Fire", desc: "Fast-paced MCQ battles" },
-  { icon: "🤖", title: "AI Interview", desc: "Mock interviews with AI feedback" },
-  { icon: "🎮", title: "1v1 Duels", desc: "Real-time coding battles" },
-  { icon: "💬", title: "Discussions", desc: "Community problem solving" },
-  { icon: "🏆", title: "Leaderboard", desc: "Climb the galaxy rankings" },
+const upcomingContests = [
+  { title: "Weekly Arena #42", time: "in 2 days", participants: "1.2k" },
+  { title: "Rapid Fire Duel", time: "Tonight, 8PM", participants: "850" },
 ];
-
-const stagger = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.1 } },
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
 
 function HomePage() {
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      <StarsBackground />
-
-      {/* Hero */}
-      <section className="relative flex min-h-screen items-center justify-center px-4 pt-16">
-        <div className="relative z-10 mx-auto max-w-4xl text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1 className="font-heading text-6xl font-black leading-none tracking-tighter sm:text-8xl flex flex-col gap-2">
-              <span className="glitch-text text-primary self-center" data-text="CLASH.">CLASH.</span>
-              <span className="text-foreground brutal-border bg-accent inline-block self-center px-6 py-2 -rotate-2">CODE.</span>
-              <span className="glitch-text text-cyan self-center" data-text="CONQUER.">CONQUER.</span>
-            </h1>
-          </motion.div>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground"
-          >
-            The ultimate competitive coding platform. Solve algorithmic challenges,
-            compete in real-time contests, battle in 1v1 duels, and climb the global leaderboard.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="mt-8 flex flex-wrap items-center justify-center gap-4"
-          >
-            <Link
-              to="/problems"
-              className="brutal-border brutal-shadow-primary brutal-hover bg-primary px-10 py-4 text-xl font-black uppercase text-black"
-            >
-              Start Solving
-            </Link>
-            <Link
-              to="/contest"
-              className="brutal-border brutal-shadow-white brutal-hover bg-black px-10 py-4 text-xl font-black uppercase text-white hover:bg-white hover:text-black transition-colors"
-            >
-              Join Contest
-            </Link>
-          </motion.div>
+    <div className="flex flex-col gap-8 w-full max-w-[1400px] mx-auto pb-20">
+      
+      {/* Top Header / Greeting */}
+      <motion.header 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="neumorphic p-8 rounded-[35px] flex flex-col md:flex-row justify-between items-start md:items-center gap-6"
+      >
+        <div>
+          <h1 className="text-4xl font-bold text-foreground">Good morning, <span className="text-primary">Coder!</span> ☀️</h1>
+          <p className="text-muted-foreground mt-2 font-medium text-lg">You're 3 problems away from your next milestone.</p>
         </div>
-      </section>
+        <div className="flex items-center gap-4">
+          <Link to="/problems" className="neumorphic pastel-blue neumorphic-hover px-6 py-3 rounded-2xl font-bold flex items-center gap-2">
+            <span>🚀</span> Resume Solving
+          </Link>
+          <button className="neumorphic p-4 rounded-2xl neumorphic-active text-xl">
+            🔔
+          </button>
+        </div>
+      </motion.header>
 
-      {/* Stats bar */}
-      <section className="relative z-10 -mt-20 px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="brutal-border brutal-shadow-magenta mx-auto grid max-w-5xl grid-cols-2 gap-0 bg-black p-0 md:grid-cols-4 rotate-1"
-        >
-          {stats.map(s => (
-            <div key={s.label} className="text-center border-2 border-white p-6 hover:bg-accent hover:text-black transition-colors group">
-              <div className="font-heading text-3xl font-black text-primary group-hover:text-black">{s.value}</div>
-              <div className="mt-2 text-sm font-bold uppercase text-white group-hover:text-black">{s.label}</div>
-            </div>
-          ))}
-        </motion.div>
-      </section>
-
-      {/* POTD */}
-      <section className="relative z-10 mx-auto mt-20 max-w-4xl px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="brutal-border brutal-shadow-cyan bg-black p-8 -rotate-1"
-        >
-          <div className="flex items-center gap-2 text-lg font-black uppercase text-cyan">
-            <span>🔥</span>
-            <span className="font-semibold">Problem of the Day</span>
+      {/* Main Dashboard Grid */}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+        
+        {/* Left/Center Column - Main Content */}
+        <div className="xl:col-span-2 flex flex-col gap-8">
+          
+          {/* Quick Stats Grid */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {stats.map((stat, i) => (
+              <motion.div 
+                key={stat.label}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: i * 0.1 }}
+                className={`neumorphic rounded-[30px] p-6 flex flex-col items-center justify-center text-center neumorphic-hover ${stat.color}`}
+              >
+                <div className="text-3xl font-black text-foreground mb-1">{stat.value}</div>
+                <div className="text-sm font-semibold text-muted-foreground">{stat.label}</div>
+              </motion.div>
+            ))}
           </div>
-          <div className="mt-3 flex items-center justify-between">
-            <div>
-              <h3 className="font-heading text-xl font-bold">Trapping Rain Water</h3>
-              <div className="mt-1 flex items-center gap-3 text-sm text-muted-foreground">
-                <span className="rounded-full bg-destructive/15 px-2 py-0.5 text-xs font-semibold text-destructive">Hard</span>
-                <span>7,200 solved</span>
+
+          {/* Problem of the Day */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="neumorphic rounded-[35px] overflow-hidden"
+          >
+            <div className="p-8 pastel-peach border-b border-white/20">
+              <div className="inline-flex items-center gap-2 neumorphic px-4 py-2 rounded-xl text-sm font-bold bg-white/50">
+                <span>🔥</span> Daily Challenge
               </div>
+              <h2 className="text-3xl font-bold mt-6 text-foreground">Trapping Rain Water</h2>
             </div>
-            <Link
-              to="/problems"
-              className="brutal-border brutal-shadow-white brutal-hover bg-white px-8 py-3 text-sm font-black uppercase text-black"
-            >
-              Solve Now
-            </Link>
-          </div>
-        </motion.div>
-      </section>
+            <div className="p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+               <p className="text-muted-foreground text-lg max-w-xl">
+                 Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
+               </p>
+               <Link to="/problems" className="shrink-0 neumorphic pastel-mint neumorphic-hover px-8 py-4 rounded-2xl font-bold text-lg">
+                 Solve Now
+               </Link>
+            </div>
+          </motion.div>
 
-      {/* Features */}
-      <section className="relative z-10 mx-auto mt-24 max-w-5xl px-4 pb-24">
-        <motion.h2
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-center font-heading text-3xl font-bold"
-        >
-          Everything you need to <span className="text-primary">dominate</span>
-        </motion.h2>
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {features.map(f => (
-            <motion.div
-              key={f.title}
-              variants={fadeUp}
-              className="brutal-border brutal-shadow-primary brutal-hover bg-black p-8 transition-transform"
-            >
-              <div className="text-3xl">{f.icon}</div>
-              <h3 className="mt-3 font-heading text-lg font-semibold">{f.title}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{f.desc}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-      </section>
+        </div>
+
+        {/* Right Sidebar Column - Secondary Info */}
+        <div className="flex flex-col gap-8">
+          
+          {/* Upcoming Contests */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4 }}
+            className="neumorphic rounded-[35px] p-8"
+          >
+            <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+              <span>📅</span> Upcoming Contests
+            </h3>
+            <div className="flex flex-col gap-4">
+              {upcomingContests.map((contest, i) => (
+                <div key={i} className="neumorphic-inset rounded-2xl p-5 flex justify-between items-center pastel-peach">
+                  <div>
+                    <h4 className="font-bold text-foreground">{contest.title}</h4>
+                    <p className="text-sm text-primary font-medium mt-1">{contest.time}</p>
+                  </div>
+                  <div className="neumorphic p-2 rounded-xl text-sm bg-background">
+                    {contest.participants}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <Link to="/contest" className="neumorphic neumorphic-hover mt-6 p-4 rounded-2xl w-full text-center font-bold block bg-background">
+              View Schedule
+            </Link>
+          </motion.div>
+
+          {/* Leaderboard Glimpse */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.5 }}
+            className="neumorphic rounded-[35px] p-8 pastel-lavender"
+          >
+             <h3 className="text-xl font-bold mb-6 flex items-center gap-2 text-foreground">
+              <span>🏆</span> Global Top 3
+            </h3>
+            <div className="flex flex-col gap-3">
+              {[1, 2, 3].map(rank => (
+                <div key={rank} className="flex items-center gap-4 bg-white/40 neumorphic p-3 rounded-2xl border-white/40">
+                  <div className="w-8 h-8 flex items-center justify-center pastel-pink font-bold rounded-xl text-sm border border-white/40 shadow-sm">
+                    #{rank}
+                  </div>
+                  <div className="font-semibold text-foreground flex-1">ProCoder_{rank}</div>
+                  <div className="text-sm text-foreground opacity-70 font-mono">3102</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+        </div>
+      </div>
     </div>
   );
 }

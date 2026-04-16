@@ -37,11 +37,11 @@ function NotFound() {
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <HeadContent />
       </head>
-      <body className="scrollbar-thin">
+      <body className="bg-background text-foreground scrollbar-thin antialiased">
         {children}
         <Scripts />
       </body>
@@ -51,19 +51,22 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   return (
-    <>
+    <div className="flex min-h-screen bg-background">
       <Navbar />
-      <Toaster
-        position="bottom-right"
-        toastOptions={{
-          style: {
-            background: 'oklch(0.17 0.025 270)',
-            border: '1px solid oklch(0.55 0.22 280 / 20%)',
-            color: 'oklch(0.95 0.01 280)',
-          },
-        }}
-      />
-      <Outlet />
-    </>
+      <main className="flex-1 w-full overflow-hidden p-6 md:p-10 transition-all duration-300">
+        <Toaster
+          position="bottom-right"
+          toastOptions={{
+            style: {
+              background: 'var(--color-background)',
+              border: '1px solid rgba(255,255,255,0.4)',
+              color: 'var(--color-foreground)',
+              boxShadow: '6px 6px 14px 0 rgba(0,0,0,0.06), -6px -6px 14px 0 rgba(255,255,255,0.7)',
+            },
+          }}
+        />
+        <Outlet />
+      </main>
+    </div>
   );
 }

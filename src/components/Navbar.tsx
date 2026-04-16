@@ -1,15 +1,13 @@
 import { Link, useLocation } from '@tanstack/react-router';
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
-  { to: '/', label: 'Home' },
-  { to: '/problems', label: 'Problems' },
-  { to: '/contest', label: 'Contests' },
-  { to: '/game', label: 'Game' },
-  { to: '/discussion', label: 'Discuss' },
-  { to: '/galaxy', label: 'Leaderboard' },
-  { to: '/chat', label: 'Chat' },
+  { to: '/', label: 'Overview', icon: '🏠' },
+  { to: '/problems', label: 'Problems', icon: '🧩' },
+  { to: '/contest', label: 'Contests', icon: '⚔️' },
+  { to: '/game', label: 'Game', icon: '🎮' },
+  { to: '/discussion', label: 'Discuss', icon: '💬' },
+  { to: '/galaxy', label: 'Leaderboard', icon: '🏆' },
 ] as const;
 
 export function Navbar() {
@@ -17,96 +15,83 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b-4 border-white bg-black">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center brutal-border bg-primary font-heading text-sm font-bold text-black">
-            A
+    <>
+      <aside className="hidden md:flex w-64 flex-col bg-background p-6 h-screen sticky top-0 neumorphic m-4 rounded-[30px]">
+        <Link to="/" className="flex items-center gap-3 mb-10 px-2">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl pastel-mint neumorphic text-2xl">
+            🌱
           </div>
-          <span className="font-heading text-lg font-bold text-primary">
-            AlgoClash
+          <span className="font-heading text-xl font-bold text-foreground">
+            AlgoDash
           </span>
         </Link>
 
-        {/* Desktop nav */}
-        <div className="hidden items-center gap-1 md:flex">
+        <nav className="flex-1 flex flex-col gap-3">
           {navLinks.map(link => {
             const active = location.pathname === link.to || (link.to !== '/' && location.pathname.startsWith(link.to));
             return (
               <Link
                 key={link.to}
                 to={link.to}
-                className={`relative rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                  active ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
+                className={`flex items-center gap-3 rounded-[20px] px-5 py-3 text-sm font-semibold transition-all ${
+                  active 
+                    ? 'neumorphic-inset text-primary' 
+                    : 'text-muted-foreground hover:neumorphic neumorphic-hover'
                 }`}
               >
-                {active && (
-                  <motion.div
-                    layoutId="nav-active"
-                    className="absolute inset-0 bg-white/20 brutal-border"
-                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">{link.label}</span>
+                <span className="text-xl">{link.icon}</span>
+                {link.label}
               </Link>
             );
           })}
-        </div>
+        </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="mt-auto flex flex-col gap-4">
           <Link
             to="/login"
-            className="rounded-md px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            className="neumorphic-hover rounded-[20px] px-5 py-3 text-center text-sm font-semibold text-foreground transition-all"
           >
-            Login
+            Sign In
           </Link>
           <Link
             to="/register"
-            className="brutal-border brutal-shadow-primary brutal-hover bg-primary px-5 py-2 text-sm font-black uppercase text-black"
+            className="neumorphic rounded-[20px] pastel-blue neumorphic-hover px-5 py-3 text-center text-sm font-bold text-foreground transition-all neumorphic-active"
           >
-            Sign Up
+            Sign Up Free
           </Link>
         </div>
+      </aside>
 
-        {/* Mobile burger */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="flex flex-col gap-1.5 md:hidden"
-        >
-          <span className={`h-0.5 w-6 bg-foreground transition-transform ${mobileOpen ? 'translate-y-2 rotate-45' : ''}`} />
-          <span className={`h-0.5 w-6 bg-foreground transition-opacity ${mobileOpen ? 'opacity-0' : ''}`} />
-          <span className={`h-0.5 w-6 bg-foreground transition-transform ${mobileOpen ? '-translate-y-2 -rotate-45' : ''}`} />
-        </button>
-      </div>
-
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden border-t border-border md:hidden"
+      {/* Mobile Navbar Alternative */}
+      <div className="md:hidden fixed top-0 w-full z-50 p-4">
+        <div className="neumorphic rounded-[25px] p-4 flex justify-between items-center bg-background">
+          <Link to="/" className="flex items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl pastel-mint neumorphic">
+               🌱
+            </div>
+          </Link>
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="neumorphic p-2 rounded-xl text-foreground neumorphic-active"
           >
-            <div className="flex flex-col gap-1 p-4">
-              {navLinks.map(link => (
+            🍔
+          </button>
+        </div>
+        {mobileOpen && (
+          <div className="absolute top-20 left-4 right-4 neumorphic rounded-[25px] p-4 flex flex-col gap-2 bg-background">
+             {navLinks.map(link => (
                 <Link
                   key={link.to}
                   to={link.to}
                   onClick={() => setMobileOpen(false)}
-                  className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                  className="rounded-xl px-4 py-3 text-sm font-semibold text-foreground neumorphic-active"
                 >
                   {link.label}
                 </Link>
               ))}
-              <div className="mt-2 flex gap-2">
-                <Link to="/login" className="flex-1 brutal-border px-4 py-2 text-center text-sm font-bold uppercase transition-transform active:translate-y-1">Login</Link>
-                <Link to="/register" className="flex-1 brutal-border brutal-shadow-primary bg-primary px-4 py-2 text-center text-sm font-black uppercase text-black brutal-hover">Sign Up</Link>
-              </div>
-            </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
-    </nav>
+      </div>
+    </>
   );
 }

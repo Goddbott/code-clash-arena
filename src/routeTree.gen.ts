@@ -28,6 +28,7 @@ import { Route as AnnouncementsRouteImport } from './routes/announcements'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProblemsSlugRouteImport } from './routes/problems.$slug'
+import { Route as GameDuelRouteImport } from './routes/game_.duel'
 
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
@@ -124,6 +125,11 @@ const ProblemsSlugRoute = ProblemsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ProblemsRoute,
 } as any)
+const GameDuelRoute = GameDuelRouteImport.update({
+  id: '/game_/duel',
+  path: '/game/duel',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -144,6 +150,7 @@ export interface FileRoutesByFullPath {
   '/rapidfire': typeof RapidfireRoute
   '/redeem': typeof RedeemRoute
   '/register': typeof RegisterRoute
+  '/game/duel': typeof GameDuelRoute
   '/problems/$slug': typeof ProblemsSlugRoute
 }
 export interface FileRoutesByTo {
@@ -165,6 +172,7 @@ export interface FileRoutesByTo {
   '/rapidfire': typeof RapidfireRoute
   '/redeem': typeof RedeemRoute
   '/register': typeof RegisterRoute
+  '/game/duel': typeof GameDuelRoute
   '/problems/$slug': typeof ProblemsSlugRoute
 }
 export interface FileRoutesById {
@@ -187,6 +195,7 @@ export interface FileRoutesById {
   '/rapidfire': typeof RapidfireRoute
   '/redeem': typeof RedeemRoute
   '/register': typeof RegisterRoute
+  '/game_/duel': typeof GameDuelRoute
   '/problems/$slug': typeof ProblemsSlugRoute
 }
 export interface FileRouteTypes {
@@ -210,6 +219,7 @@ export interface FileRouteTypes {
     | '/rapidfire'
     | '/redeem'
     | '/register'
+    | '/game/duel'
     | '/problems/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -231,6 +241,7 @@ export interface FileRouteTypes {
     | '/rapidfire'
     | '/redeem'
     | '/register'
+    | '/game/duel'
     | '/problems/$slug'
   id:
     | '__root__'
@@ -252,6 +263,7 @@ export interface FileRouteTypes {
     | '/rapidfire'
     | '/redeem'
     | '/register'
+    | '/game_/duel'
     | '/problems/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -274,6 +286,7 @@ export interface RootRouteChildren {
   RapidfireRoute: typeof RapidfireRoute
   RedeemRoute: typeof RedeemRoute
   RegisterRoute: typeof RegisterRoute
+  GameDuelRoute: typeof GameDuelRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -411,6 +424,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProblemsSlugRouteImport
       parentRoute: typeof ProblemsRoute
     }
+    '/game_/duel': {
+      id: '/game_/duel'
+      path: '/game/duel'
+      fullPath: '/game/duel'
+      preLoaderRoute: typeof GameDuelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -445,6 +465,7 @@ const rootRouteChildren: RootRouteChildren = {
   RapidfireRoute: RapidfireRoute,
   RedeemRoute: RedeemRoute,
   RegisterRoute: RegisterRoute,
+  GameDuelRoute: GameDuelRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

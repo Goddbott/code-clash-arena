@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { StarsBackground } from "../components/StarsBackground";
 
-export const Route = createFileRoute("/game")({
+export const Route = createFileRoute("/game")({ 
   head: () => ({
     meta: [
       { title: "Game Modes — AlgoClash" },
@@ -48,7 +48,7 @@ const modes: GameMode[] = [
     ],
     players: 247,
     color: "primary",
-    link: "/duel",
+    link: "/game/duel",
   },
   {
     icon: "🎯",

@@ -1,6 +1,8 @@
 import { Link, useLocation } from '@tanstack/react-router';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Flame, Coins } from 'lucide-react';
+import { mockUser } from '../lib/mock-data';
 
 const navLinks = [
   { to: '/', label: 'Home' },
@@ -53,7 +55,17 @@ export function Navbar() {
           })}
         </div>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-4 md:flex">
+          <div className="flex items-center gap-4 border-r border-white/20 pr-4">
+            <div className="flex items-center gap-1.5 hover:text-orange-500 transition-colors cursor-help" title="Current Streak">
+              <Flame className="w-4 h-4 text-orange-500 fill-orange-500/20" />
+              <span className="font-mono font-bold text-sm tracking-tighter">{mockUser.streak}</span>
+            </div>
+            <div className="flex items-center gap-1.5 hover:text-yellow-400 transition-colors cursor-help" title="AlgoCoins">
+              <Coins className="w-4 h-4 text-yellow-400 fill-yellow-400/20" />
+              <span className="font-mono font-bold text-sm tracking-tighter">{mockUser.coins.toLocaleString()}</span>
+            </div>
+          </div>
           <Link
             to="/login"
             className="rounded-md px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
@@ -99,9 +111,24 @@ export function Navbar() {
                   {link.label}
                 </Link>
               ))}
-              <div className="mt-2 flex gap-2">
-                <Link to="/login" className="flex-1 brutal-border px-4 py-2 text-center text-sm font-bold uppercase transition-transform active:translate-y-1">Login</Link>
-                <Link to="/register" className="flex-1 brutal-border brutal-shadow-primary bg-primary px-4 py-2 text-center text-sm font-black uppercase text-black brutal-hover">Sign Up</Link>
+              <div className="mt-2 flex flex-col gap-2">
+                <div className="flex items-center justify-around brutal-border bg-white/5 py-3 mb-2">
+                  <div className="flex flex-col items-center gap-1">
+                    <Flame className="w-6 h-6 text-orange-500" />
+                    <span className="font-mono font-black text-xs text-orange-500 uppercase">Streak</span>
+                    <span className="font-heading font-bold">{mockUser.streak}</span>
+                  </div>
+                  <div className="h-full w-px bg-white/20"></div>
+                  <div className="flex flex-col items-center gap-1">
+                    <Coins className="w-6 h-6 text-yellow-400" />
+                    <span className="font-mono font-black text-xs text-yellow-400 uppercase">Coins</span>
+                    <span className="font-heading font-bold">{mockUser.coins.toLocaleString()}</span>
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <Link to="/login" className="flex-1 brutal-border px-4 py-2 text-center text-sm font-bold uppercase transition-transform active:translate-y-1">Login</Link>
+                  <Link to="/register" className="flex-1 brutal-border brutal-shadow-primary bg-primary px-4 py-2 text-center text-sm font-black uppercase text-black brutal-hover">Sign Up</Link>
+                </div>
               </div>
             </div>
           </motion.div>

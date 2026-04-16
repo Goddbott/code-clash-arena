@@ -48,6 +48,46 @@ function ProblemsPage() {
           </h1>
         </motion.div>
 
+        {/* Problem of the Day */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="mb-8 relative z-10 w-full brutal-border brutal-shadow-primary bg-black p-6 flex flex-col md:flex-row gap-6 justify-between items-start md:items-center"
+        >
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-wrap items-center gap-3">
+              <h2 className="text-2xl font-black uppercase text-white tracking-tight">Problem of the Day</h2>
+              <span className="brutal-border bg-warning text-black px-2 py-1 text-xs font-black uppercase">+10 Coins</span>
+            </div>
+            <p className="text-muted-foreground font-mono text-sm">Solve today's challenge and earn coins!</p>
+            
+            <div className="mt-4 flex flex-col gap-3">
+              <div className="flex items-center gap-3">
+                <Link to="/problems/$slug" params={{ slug: "sort-a-stack" }} className="text-xl font-bold text-cyan hover:text-white transition-colors underline decoration-2 underline-offset-4 decoration-white/30 hover:decoration-white">
+                  Sort a Stack
+                </Link>
+                <DifficultyBadge difficulty="Medium" />
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {["Stack", "Simulation", "In-place"].map(tag => (
+                   <span key={tag} className="brutal-border border-2 border-white/20 bg-transparent px-2 py-0.5 font-mono text-[10px] font-bold uppercase text-muted-foreground">
+                     {tag}
+                   </span>
+                ))}
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex flex-col items-start md:items-end gap-4 w-full md:w-auto border-t-[4px] border-white/20 pt-4 md:border-none md:pt-0">
+             <div className="text-sm font-mono text-muted-foreground uppercase tracking-tight">
+               <span className="text-primary font-black text-xl">0</span> solved today
+             </div>
+             <Link to="/problems/$slug" params={{ slug: "sort-a-stack" }} className="brutal-border brutal-shadow-sm bg-primary px-8 py-3 font-black uppercase text-black hover:-translate-y-1 hover:brutal-shadow-md transition-all active:translate-y-0 active:brutal-shadow-none text-center w-full md:w-auto">
+               Solve Now
+             </Link>
+          </div>
+        </motion.div>
+
         {/* Controls Layout */}
         <div className="brutal-border brutal-shadow-cyan bg-black p-6 flex flex-col gap-6 md:flex-row md:items-center md:justify-between mb-8 relative z-10 max-w-full">
           

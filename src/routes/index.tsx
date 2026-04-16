@@ -38,7 +38,7 @@ function HomePage() {
       <StarsBackground />
 
       {/* Hero */}
-      <section className="relative flex min-h-screen items-center justify-center px-4 pt-16">
+      <section className="relative flex items-center justify-center px-4 pb-24 pt-32 min-h-[85vh]">
         <div className="relative z-10 mx-auto max-w-4xl text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -83,7 +83,7 @@ function HomePage() {
       </section>
 
       {/* Stats bar */}
-      <section className="relative z-10 -mt-20 px-4">
+      <section className="relative z-10 mt-4 px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

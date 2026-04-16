@@ -18,6 +18,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as InterviewRouteImport } from './routes/interview'
 import { Route as GameRouteImport } from './routes/game'
 import { Route as GalaxyRouteImport } from './routes/galaxy'
+import { Route as DuelRouteImport } from './routes/duel'
 import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as DiscussionRouteImport } from './routes/discussion'
 import { Route as ContestRouteImport } from './routes/contest'
@@ -71,6 +72,11 @@ const GameRoute = GameRouteImport.update({
 const GalaxyRoute = GalaxyRouteImport.update({
   id: '/galaxy',
   path: '/galaxy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DuelRoute = DuelRouteImport.update({
+  id: '/duel',
+  path: '/duel',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DocumentsRoute = DocumentsRouteImport.update({
@@ -128,6 +134,7 @@ export interface FileRoutesByFullPath {
   '/contest': typeof ContestRoute
   '/discussion': typeof DiscussionRoute
   '/documents': typeof DocumentsRoute
+  '/duel': typeof DuelRoute
   '/galaxy': typeof GalaxyRoute
   '/game': typeof GameRoute
   '/interview': typeof InterviewRoute
@@ -148,6 +155,7 @@ export interface FileRoutesByTo {
   '/contest': typeof ContestRoute
   '/discussion': typeof DiscussionRoute
   '/documents': typeof DocumentsRoute
+  '/duel': typeof DuelRoute
   '/galaxy': typeof GalaxyRoute
   '/game': typeof GameRoute
   '/interview': typeof InterviewRoute
@@ -169,6 +177,7 @@ export interface FileRoutesById {
   '/contest': typeof ContestRoute
   '/discussion': typeof DiscussionRoute
   '/documents': typeof DocumentsRoute
+  '/duel': typeof DuelRoute
   '/galaxy': typeof GalaxyRoute
   '/game': typeof GameRoute
   '/interview': typeof InterviewRoute
@@ -191,6 +200,7 @@ export interface FileRouteTypes {
     | '/contest'
     | '/discussion'
     | '/documents'
+    | '/duel'
     | '/galaxy'
     | '/game'
     | '/interview'
@@ -211,6 +221,7 @@ export interface FileRouteTypes {
     | '/contest'
     | '/discussion'
     | '/documents'
+    | '/duel'
     | '/galaxy'
     | '/game'
     | '/interview'
@@ -231,6 +242,7 @@ export interface FileRouteTypes {
     | '/contest'
     | '/discussion'
     | '/documents'
+    | '/duel'
     | '/galaxy'
     | '/game'
     | '/interview'
@@ -252,6 +264,7 @@ export interface RootRouteChildren {
   ContestRoute: typeof ContestRoute
   DiscussionRoute: typeof DiscussionRoute
   DocumentsRoute: typeof DocumentsRoute
+  DuelRoute: typeof DuelRoute
   GalaxyRoute: typeof GalaxyRoute
   GameRoute: typeof GameRoute
   InterviewRoute: typeof InterviewRoute
@@ -326,6 +339,13 @@ declare module '@tanstack/react-router' {
       path: '/galaxy'
       fullPath: '/galaxy'
       preLoaderRoute: typeof GalaxyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/duel': {
+      id: '/duel'
+      path: '/duel'
+      fullPath: '/duel'
+      preLoaderRoute: typeof DuelRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/documents': {
@@ -415,6 +435,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContestRoute: ContestRoute,
   DiscussionRoute: DiscussionRoute,
   DocumentsRoute: DocumentsRoute,
+  DuelRoute: DuelRoute,
   GalaxyRoute: GalaxyRoute,
   GameRoute: GameRoute,
   InterviewRoute: InterviewRoute,

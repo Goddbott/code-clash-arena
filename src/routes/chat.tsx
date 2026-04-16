@@ -32,91 +32,146 @@ function ChatPage() {
   const [message, setMessage] = useState("");
 
   return (
-    <div className="flex h-screen pt-16">
-      {/* Rooms sidebar */}
-      <div className="hidden w-72 flex-shrink-0 border-r border-border bg-surface md:block">
-        <div className="flex items-center justify-between border-b border-border p-4">
-          <h2 className="font-heading text-lg font-bold">Chat</h2>
-          <button className="rounded-md bg-primary/10 px-3 py-1 text-xs font-medium text-primary hover:bg-primary/20">
-            + Room
+    <div className="flex h-screen max-h-screen pt-16 bg-black text-white font-sans overflow-hidden">
+      
+      {/* Rooms Sidebar */}
+      <div className="hidden w-72 md:w-80 flex-shrink-0 border-r border-white/20 bg-black md:flex flex-col relative z-10">
+        <div className="flex items-center justify-between border-b-[3px] border-white/20 p-5 bg-white/5 shrink-0">
+          <h2 className="font-heading text-2xl font-black uppercase tracking-wider">COMMS 
+            <span className="text-[10px] text-cyan block animate-pulse mt-1">SECURE CONNECTION</span>
+          </h2>
+          <button className="brutal-border bg-cyan text-black px-3 py-1 font-black uppercase text-xs hover:bg-white transition-colors brutal-shadow-sm">
+            + Root
           </button>
         </div>
-        <div className="space-y-1 p-2">
-          {rooms.map(room => (
-            <button
-              key={room.id}
-              onClick={() => setSelected(room.id)}
-              className={`flex w-full items-center gap-3 rounded-lg p-3 text-left transition-colors ${
-                selected === room.id ? 'bg-primary/10 text-foreground' : 'text-muted-foreground hover:bg-surface-elevated'
-              }`}
-            >
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/20 text-sm font-bold text-primary">
-                #
-              </div>
-              <div className="flex-1 overflow-hidden">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium">{room.name}</span>
-                  <span className="text-xs text-muted-foreground">{room.time}</span>
+        
+        <div className="flex-1 overflow-y-auto w-full">
+          {rooms.map(room => {
+            const isSelected = selected === room.id;
+            return (
+              <button
+                key={room.id}
+                onClick={() => setSelected(room.id)}
+                className={`flex w-full items-stretch text-left transition-colors border-b border-white/10 group ${
+                  isSelected ? 'bg-primary/20 hover:bg-primary/30' : 'hover:bg-white/5'
+                }`}
+              >
+                {/* Active Indicator Strip */}
+                <div className={`w-2 shrink-0 transition-colors ${isSelected ? 'bg-primary' : 'bg-transparent group-hover:bg-white/30'}`}></div>
+
+                <div className="p-4 flex-1 overflow-hidden flex gap-3 items-center">
+                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center brutal-border text-lg font-black ${
+                    isSelected ? 'bg-primary text-black' : 'bg-black text-white border-white/30'
+                  }`}>
+                    #
+                  </div>
+                  <div className="flex-1 overflow-hidden flex flex-col gap-1 justify-center">
+                    <div className="flex items-center justify-between">
+                      <span className={`text-sm font-black uppercase tracking-wider truncate mr-2 ${isSelected ? 'text-primary' : 'text-white'}`}>{room.name}</span>
+                      <span className="text-[10px] font-mono text-muted-foreground shrink-0">{room.time}</span>
+                    </div>
+                    <p className="truncate text-xs font-mono text-white/50">{room.lastMsg}</p>
+                  </div>
+                  {room.unread > 0 && (
+                    <span className="shrink-0 flex h-6 min-w-6 items-center justify-center brutal-border bg-cyan text-xs font-black text-black">
+                      {room.unread}
+                    </span>
+                  )}
                 </div>
-                <p className="truncate text-xs text-muted-foreground">{room.lastMsg}</p>
-              </div>
-              {room.unread > 0 && (
-                <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-[10px] font-bold text-primary-foreground">
-                  {room.unread}
-                </span>
-              )}
-            </button>
-          ))}
+              </button>
+            )
+          })}
         </div>
       </div>
 
-      {/* Chat area */}
-      <div className="flex flex-1 flex-col">
-        <div className="flex items-center gap-3 border-b border-border bg-surface px-4 py-3">
-          <span className="font-heading text-base font-semibold">
-            # {rooms.find(r => r.id === selected)?.name}
-          </span>
-          <span className="flex items-center gap-1 text-xs text-muted-foreground">
-            <span className="h-2 w-2 rounded-full bg-success" />
-            {rooms.find(r => r.id === selected)?.online} online
-          </span>
+      {/* Chat Area Terminal */}
+      <div className="flex flex-1 flex-col bg-black relative min-w-0">
+        {/* Chat Area Header */}
+        <div className="flex items-center gap-4 border-b-[3px] border-white/20 bg-white/5 px-6 py-4 shrink-0 shadow-sm z-10 w-full justify-between">
+          <div className="flex items-center gap-4 min-w-0">
+             <span className="font-heading text-xl md:text-2xl font-black uppercase text-primary tracking-widest truncate">
+               <span className="text-white/30 mr-2">/ROOT/</span>
+               {rooms.find(r => r.id === selected)?.name}
+             </span>
+          </div>
+
+          <div className="flex items-center gap-2 border border-white/20 bg-black px-3 py-1 shrink-0">
+             <span className="h-2 w-2 rounded-full bg-success animate-pulse shrink-0" />
+             <span className="font-mono text-xs uppercase text-success font-bold tracking-widest whitespace-nowrap hidden sm:inline">
+                {rooms.find(r => r.id === selected)?.online} Active
+             </span>
+             <span className="font-mono text-xs uppercase text-success font-bold tracking-widest whitespace-nowrap sm:hidden">
+                {rooms.find(r => r.id === selected)?.online}
+             </span>
+          </div>
         </div>
 
-        <div className="flex-1 space-y-4 overflow-y-auto p-4">
+        {/* Messages Feed */}
+        <div className="flex-1 overflow-y-auto p-4 md:p-8 space-y-6 bg-black relative w-full scroll-smooth">
+          {/* Faded Background Pattern (Terminal Grid Vibe) */}
+          <div className="absolute inset-0 z-0 opacity-5 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '24px 24px'}}></div>
+
           {mockMessages.map((msg, i) => (
             <motion.div
               key={msg.id}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
-              className={`flex ${msg.isMe ? 'justify-end' : 'justify-start'}`}
+              className={`flex w-full relative z-10 ${msg.isMe ? 'justify-end' : 'justify-start'}`}
             >
-              <div className={`max-w-[70%] rounded-xl px-4 py-2.5 ${
-                msg.isMe ? 'bg-primary text-primary-foreground' : 'bg-surface-elevated text-foreground'
-              }`}>
+              <div className={`max-w-[85%] md:max-w-[70%] group flex flex-col ${msg.isMe ? 'items-end' : 'items-start'}`}>
+                {/* Author Badge */}
                 {!msg.isMe && (
-                  <div className="mb-1 text-xs font-semibold text-cyan">{msg.user}</div>
+                  <div className="mb-1 text-[10px] font-black uppercase text-cyan font-mono tracking-widest bg-cyan/10 px-2 py-0.5 border border-cyan/20 inline-block">
+                     {msg.user}
+                  </div>
                 )}
-                <p className="text-sm">{msg.content}</p>
-                <div className={`mt-1 text-right text-[10px] ${msg.isMe ? 'text-primary-foreground/60' : 'text-muted-foreground'}`}>
+                {msg.isMe && (
+                  <div className="mb-1 text-[10px] font-black uppercase text-primary font-mono tracking-widest bg-primary/10 px-2 py-0.5 border border-primary/20 inline-block">
+                     YOU
+                  </div>
+                )}
+
+                {/* Message Terminal Container */}
+                <div className={`px-4 md:px-5 py-3 ${
+                  msg.isMe 
+                    ? 'brutal-border bg-primary text-black brutal-shadow-sm' 
+                    : 'brutal-border bg-black text-white hover:bg-white/5 transition-colors border-white/40'
+                }`}>
+                  <p className="text-sm font-mono whitespace-pre-wrap leading-relaxed">
+                     {msg.content}
+                  </p>
+                </div>
+                
+                {/* Timestamp */}
+                <div className={`mt-1 font-mono text-[10px] uppercase ${msg.isMe ? 'text-white/40' : 'text-white/30'}`}>
                   {msg.time}
                 </div>
               </div>
             </motion.div>
           ))}
+          
+          <div className="h-4 w-full"></div>
         </div>
 
-        <div className="border-t border-border bg-surface p-4">
-          <div className="flex gap-2">
-            <input
-              type="text"
-              value={message}
-              onChange={e => setMessage(e.target.value)}
-              placeholder="Type a message..."
-              className="flex-1 rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder-muted-foreground outline-none focus:border-primary"
-            />
-            <button className="glow-primary rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-all hover:brightness-110">
-              Send
+        {/* Input Block */}
+        <div className="border-t-[3px] border-white/20 bg-white/5 p-4 md:p-6 shrink-0 relative z-20 w-full">
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 max-w-full">
+            <div className="flex-1 relative flex text-sm min-w-0">
+               {/* Terminal Prompt Prefix */}
+               <div className="absolute left-0 top-0 bottom-0 flex items-center justify-center px-4 font-mono font-black text-primary pointer-events-none select-none z-10">
+                 {'>_'}
+               </div>
+               <input
+                 type="text"
+                 value={message}
+                 onChange={e => setMessage(e.target.value)}
+                 placeholder="INITIALIZE TRANSMISSION..."
+                 className="w-full brutal-border bg-black text-white px-4 py-3 md:py-4 pl-12 font-mono text-sm placeholder:text-muted-foreground outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors focus:brutal-shadow-sm"
+               />
+            </div>
+            <button className="brutal-border bg-white text-black px-8 py-3 md:py-4 font-black uppercase tracking-widest hover:bg-primary transition-colors brutal-shadow-sm shrink-0 w-full sm:w-auto h-[46px] md:h-[56px] flex items-center justify-center">
+              Transmit <span className="ml-2 hidden md:inline">▲</span>
             </button>
           </div>
         </div>

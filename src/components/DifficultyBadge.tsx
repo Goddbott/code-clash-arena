@@ -1,11 +1,11 @@
 export function DifficultyBadge({ difficulty }: { difficulty: 'Easy' | 'Medium' | 'Hard' }) {
   const styles = {
-    Easy: 'bg-success/15 text-success',
-    Medium: 'bg-warning/15 text-warning',
-    Hard: 'bg-destructive/15 text-destructive',
+    Easy: 'bg-success text-black brutal-border',
+    Medium: 'bg-warning text-black brutal-border',
+    Hard: 'bg-destructive text-black brutal-border',
   };
   return (
-    <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold ${styles[difficulty]}`}>
+    <span className={`inline-flex px-3 py-1 font-mono text-xs font-black uppercase ${styles[difficulty]}`}>
       {difficulty}
     </span>
   );

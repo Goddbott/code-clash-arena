@@ -14,11 +14,38 @@ export const Route = createFileRoute("/game")({
   component: GamePage,
 });
 
-const modes = [
+type GameMode = {
+  icon: string;
+  title: string;
+  subtitle?: string;
+  desc: string;
+  players: number;
+  color: string;
+  link: string;
+  stats?: { label: string; value: string }[];
+  features?: string[];
+};
+
+const modes: GameMode[] = [
   {
     icon: "⚔️",
     title: "1v1 Duel",
-    desc: "Challenge a friend or random opponent to solve the same problem. First to solve wins!",
+    subtitle: "Coding Battle",
+    desc: "Classic algorithmic problem solving",
+    stats: [
+      { label: "Duration", value: "30-60 min" },
+      { label: "Players", value: "1v1" },
+      { label: "Focus", value: "Coding" },
+      { label: "Rating", value: "ELO Based" }
+    ],
+    features: [
+      "Full code editor with syntax highlighting",
+      "Multiple programming languages (C++, Java, Python)",
+      "Real-time test case validation",
+      "ELO rating system",
+      "30-60 minute battles",
+      "Dynamic difficulty matching"
+    ],
     players: 247,
     color: "primary",
     link: "/duel",
@@ -71,6 +98,14 @@ function GamePage() {
               mode.color === 'cyan' ? 'group-hover:text-cyan' : 
               'group-hover:text-warning';
 
+            // Workaround to safely inject color specific tailwind class
+            const textClassMap: Record<string, string> = {
+              "primary": "text-primary",
+              "cyan": "text-cyan",
+              "warning": "text-warning"
+            };
+            const bulletColor = textClassMap[mode.color] || "text-white";
+
             return (
               <motion.div
                 key={mode.title}
@@ -82,14 +117,46 @@ function GamePage() {
                   to={mode.link as any}
                   className={`brutal-border bg-black group relative flex flex-col p-8 text-left transition-all ${shadowClass} hover:-translate-y-2 hover:translate-x-2 block h-full`}
                 >
-                  <div className="text-5xl">{mode.icon}</div>
+                  <div className="flex items-center justify-between">
+                    <div className="text-5xl">{mode.icon}</div>
+                    {mode.subtitle && <div className="text-[10px] font-mono font-black uppercase text-white/50 border border-white/20 px-2 py-1">{mode.subtitle}</div>}
+                  </div>
+                  
                   <h3 className={`mt-4 font-heading text-2xl font-black uppercase transition-colors ${hoverTextClass}`}>
                     {mode.title}
                   </h3>
-                  <p className="mt-4 text-sm font-mono text-muted-foreground flex-grow">
+                  <p className="mt-2 text-sm font-mono text-muted-foreground">
                     {mode.desc}
                   </p>
-                  <div className="mt-6 flex flex-wrap items-center justify-between gap-2 border-t-[3px] border-white/20 pt-4">
+
+                  {mode.stats && (
+                    <div className="grid grid-cols-2 gap-2 mt-4">
+                      {mode.stats.map(s => (
+                        <div key={s.label} className="border border-white/10 p-2 bg-white/5">
+                          <div className="text-white font-bold text-sm tracking-tight">{s.value}</div>
+                          <div className="text-[10px] uppercase text-muted-foreground mt-0.5">{s.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {mode.features && (
+                    <div className="mt-4 flex-grow">
+                      <div className="text-[10px] font-black uppercase text-white/70 mb-2 border-b border-white/20 pb-1">Features</div>
+                      <ul className="text-xs text-muted-foreground font-mono space-y-1.5 mt-2">
+                        {mode.features.map(f => (
+                          <li key={f} className="flex gap-2 items-start leading-tight">
+                             <span className={`${bulletColor} mt-0.5`}>▸</span>
+                             <span>{f}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {!mode.features && <div className="flex-grow"></div>}
+
+                  <div className="mt-6 flex flex-wrap items-center justify-between gap-2 border-t-[3px] border-white/20 pt-4 shrink-0">
                     <div className="flex items-center gap-2 text-xs font-black uppercase text-muted-foreground">
                       <span className="flex h-3 w-3 items-center justify-center bg-success brutal-border"></span>
                       {mode.players} Online

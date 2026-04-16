@@ -129,6 +129,75 @@ function HomePage() {
         </motion.div>
       </section>
 
+      {/* Announcements & Contests Split Section */}
+      <section className="relative z-10 mx-auto mt-24 max-w-5xl px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Left: Announcements */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="brutal-border brutal-shadow-primary bg-black p-8 flex flex-col gap-4 -rotate-1"
+          >
+             <div className="flex items-center gap-2 text-xl font-black uppercase text-primary">
+                <span>📢</span>
+                <h2>Announcements</h2>
+             </div>
+             <div className="space-y-4 mt-4">
+                <div className="border-l-4 border-primary pl-4">
+                  <h4 className="font-bold text-white uppercase text-sm">Season 4 Concluded!</h4>
+                  <p className="text-muted-foreground text-sm mt-1">Congrats to ProCoder_1 for securing the top spot. Rewards are rolling out.</p>
+                </div>
+                <div className="border-l-4 border-accent pl-4">
+                  <h4 className="font-bold text-white uppercase text-sm">New Game Mode</h4>
+                  <p className="text-muted-foreground text-sm mt-1">Rapid Fire mode is now live! Challenge friends in intense 60s MCQ battles.</p>
+                </div>
+                <div className="border-l-4 border-cyan pl-4">
+                  <h4 className="font-bold text-white uppercase text-sm">Server Maintenance</h4>
+                  <p className="text-muted-foreground text-sm mt-1">Scheduled maintenance on Friday at 2AM UTC. Expected downtime: 1 hour.</p>
+                </div>
+             </div>
+          </motion.div>
+
+          {/* Right: Upcoming Contests */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="brutal-border brutal-shadow-cyan bg-black p-8 flex flex-col gap-4 rotate-1"
+          >
+             <div className="flex items-center gap-2 text-xl font-black uppercase text-cyan">
+                <span>⚔️</span>
+                <h2>Upcoming Contests</h2>
+             </div>
+             <div className="space-y-4 mt-4 flex-grow">
+                <div className="flex justify-between items-center border border-white/20 p-3 hover:bg-white/5 transition-colors group">
+                  <div>
+                    <h4 className="font-bold text-white text-sm group-hover:text-cyan transition-colors">Weekly Arena #42</h4>
+                    <p className="text-primary text-xs mt-1 font-bold">Starts in 2 Days</p>
+                  </div>
+                  <div className="text-xs font-mono text-muted-foreground bg-white/10 px-2 py-1 brutal-border border-2 border-white/20">1.2k Reg</div>
+                </div>
+                <div className="flex justify-between items-center border border-white/20 p-3 hover:bg-white/5 transition-colors group">
+                  <div>
+                    <h4 className="font-bold text-white text-sm group-hover:text-accent transition-colors">Beginner's Brawl</h4>
+                    <p className="text-accent text-xs mt-1 font-bold">Starts Tomorrow, 8PM</p>
+                  </div>
+                  <div className="text-xs font-mono text-muted-foreground bg-white/10 px-2 py-1 brutal-border border-2 border-white/20">850 Reg</div>
+                </div>
+                <div className="flex justify-between items-center border border-white/20 p-3 hover:bg-white/5 transition-colors group">
+                  <div>
+                    <h4 className="font-bold text-white text-sm group-hover:text-primary transition-colors">1v1 Iron Coder</h4>
+                    <p className="text-cyan text-xs mt-1 font-bold">Starts Dec 12, 6PM</p>
+                  </div>
+                  <div className="text-xs font-mono text-muted-foreground bg-white/10 px-2 py-1 brutal-border border-2 border-white/20">300 Reg</div>
+                </div>
+             </div>
+             <Link to="/contest" className="brutal-border brutal-shadow-white bg-white w-full text-center py-2 text-black font-black uppercase text-sm mt-2 brutal-hover hover:bg-black hover:text-white transition-colors">View All Schedule</Link>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Features */}
       <section className="relative z-10 mx-auto mt-24 max-w-5xl px-4 pb-24">
         <motion.h2
@@ -159,6 +228,36 @@ function HomePage() {
           ))}
         </motion.div>
       </section>
+
+      {/* Footer */}
+      <footer className="relative z-10 border-t-[6px] border-white bg-black mt-12">
+        <div className="mx-auto max-w-7xl px-4 py-12 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-6">
+          <div className="flex items-center gap-3">
+            <div className="flex h-12 w-12 items-center justify-center brutal-border bg-primary font-heading text-xl font-black text-black -rotate-6">
+              A
+            </div>
+            <span className="font-heading text-3xl font-black text-primary uppercase mt-1">
+              AlgoClash
+            </span>
+          </div>
+          
+          <div className="flex flex-wrap items-center justify-center gap-6 text-sm font-black uppercase text-muted-foreground">
+            <Link to="/problems" className="hover:text-primary transition-colors">Rules</Link>
+            <Link to="/discussion" className="hover:text-cyan transition-colors">Forum</Link>
+            <Link to="/game" className="hover:text-accent transition-colors">Contact</Link>
+            <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">GitHub</a>
+          </div>
+
+          <div className="flex flex-col items-center md:items-end gap-1">
+             <div className="text-xs text-white font-mono bg-white/10 px-2 py-1 brutal-border border-2 border-white">
+               SYS.STATUS: <span className="text-primary font-bold">ONLINE</span>
+             </div>
+             <div className="text-xs text-muted-foreground font-mono mt-2">
+               © 2026 ALGOCLASH. ALL RIGHTS RESERVED.
+             </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

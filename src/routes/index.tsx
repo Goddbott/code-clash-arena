@@ -88,7 +88,7 @@ function HomePage() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="brutal-border brutal-shadow-magenta mx-auto grid max-w-5xl grid-cols-2 gap-0 bg-black p-0 md:grid-cols-4 rotate-1"
+          className="brutal-border brutal-shadow-magenta mx-auto grid max-w-5xl grid-cols-2 gap-0 bg-black p-0 md:grid-cols-4"
         >
           {stats.map(s => (
             <div key={s.label} className="text-center border-2 border-white p-6 hover:bg-accent hover:text-black transition-colors group">
@@ -105,7 +105,7 @@ function HomePage() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="brutal-border brutal-shadow-cyan bg-black p-8 -rotate-1"
+          className="brutal-border brutal-shadow-cyan bg-black p-8"
         >
           <div className="flex items-center gap-2 text-lg font-black uppercase text-cyan">
             <span>🔥</span>
@@ -137,7 +137,7 @@ function HomePage() {
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="brutal-border brutal-shadow-primary bg-black p-8 flex flex-col gap-4 -rotate-1"
+            className="brutal-border brutal-shadow-primary bg-black p-8 flex flex-col gap-4"
           >
              <div className="flex items-center gap-2 text-xl font-black uppercase text-primary">
                 <span>📢</span>
@@ -164,7 +164,7 @@ function HomePage() {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="brutal-border brutal-shadow-cyan bg-black p-8 flex flex-col gap-4 rotate-1"
+            className="brutal-border brutal-shadow-cyan bg-black p-8 flex flex-col gap-4"
           >
              <div className="flex items-center gap-2 text-xl font-black uppercase text-cyan">
                 <span>⚔️</span>

@@ -37,11 +37,9 @@ function ChatPage() {
       {/* Rooms Sidebar */}
       <div className="hidden w-72 md:w-80 flex-shrink-0 border-r border-white/20 bg-black md:flex flex-col relative z-10">
         <div className="flex items-center justify-between border-b-[3px] border-white/20 p-5 bg-white/5 shrink-0">
-          <h2 className="font-heading text-2xl font-black uppercase tracking-wider">COMMS 
-            <span className="text-[10px] text-cyan block animate-pulse mt-1">SECURE CONNECTION</span>
-          </h2>
+          <h2 className="font-heading text-2xl font-black uppercase tracking-wider">CHANNELS</h2>
           <button className="brutal-border bg-cyan text-black px-3 py-1 font-black uppercase text-xs hover:bg-white transition-colors brutal-shadow-sm">
-            + Root
+            + NEW
           </button>
         </div>
         
@@ -90,7 +88,6 @@ function ChatPage() {
         <div className="flex items-center gap-4 border-b-[3px] border-white/20 bg-white/5 px-6 py-4 shrink-0 shadow-sm z-10 w-full justify-between">
           <div className="flex items-center gap-4 min-w-0">
              <span className="font-heading text-xl md:text-2xl font-black uppercase text-primary tracking-widest truncate">
-               <span className="text-white/30 mr-2">/ROOT/</span>
                {rooms.find(r => r.id === selected)?.name}
              </span>
           </div>
@@ -166,12 +163,12 @@ function ChatPage() {
                  type="text"
                  value={message}
                  onChange={e => setMessage(e.target.value)}
-                 placeholder="INITIALIZE TRANSMISSION..."
+                 placeholder="Type your message..."
                  className="w-full brutal-border bg-black text-white px-4 py-3 md:py-4 pl-12 font-mono text-sm placeholder:text-muted-foreground outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors focus:brutal-shadow-sm"
                />
             </div>
             <button className="brutal-border bg-white text-black px-8 py-3 md:py-4 font-black uppercase tracking-widest hover:bg-primary transition-colors brutal-shadow-sm shrink-0 w-full sm:w-auto h-[46px] md:h-[56px] flex items-center justify-center">
-              Transmit <span className="ml-2 hidden md:inline">▲</span>
+              Send <span className="ml-2 hidden md:inline">▲</span>
             </button>
           </div>
         </div>

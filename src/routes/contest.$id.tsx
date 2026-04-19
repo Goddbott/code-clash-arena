@@ -143,7 +143,8 @@ function ContestDetailPage() {
                     </div>
                     
                     <Link
-                      to="/problems" // Simplified for now, would link to problems.$slug
+                      to="/problems/$slug"
+                      params={{ slug: prob.slug }}
                       className="w-full md:w-auto brutal-border bg-white text-black px-8 py-3 font-black uppercase text-sm hover:bg-primary transition-all text-center flex items-center justify-center gap-2 group/btn"
                     >
                       Solve Problem

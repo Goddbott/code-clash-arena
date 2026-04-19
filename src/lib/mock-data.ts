@@ -14,6 +14,7 @@ export interface Problem {
 
 export interface ContestProblem {
   letter: string;
+  slug: string;
   title: string;
   difficulty: 'Easy' | 'Medium' | 'Hard';
   score: number;
@@ -121,10 +122,10 @@ export const mockContests: Contest[] = [
     problems: 4,
     description: "Our signature weekly challenge. Solve 4 algorithmic problems in 2 hours to improve your rating.",
     contestProblems: [
-      { letter: 'A', title: 'Running Sum of 1d Array', difficulty: 'Easy', score: 50 },
-      { letter: 'B', title: 'Shuffle the Array', difficulty: 'Easy', score: 100 },
-      { letter: 'C', title: 'Capacity To Ship Packages', difficulty: 'Medium', score: 200 },
-      { letter: 'D', title: 'Median of Two Sorted Arrays', difficulty: 'Hard', score: 500 },
+      { letter: 'A', slug: 'running-sum', title: 'Running Sum of 1d Array', difficulty: 'Easy', score: 50 },
+      { letter: 'B', slug: 'shuffle-array', title: 'Shuffle the Array', difficulty: 'Easy', score: 100 },
+      { letter: 'C', slug: 'capacity-ship', title: 'Capacity To Ship Packages', difficulty: 'Medium', score: 200 },
+      { letter: 'D', slug: 'two-sum', title: 'Two Sum', difficulty: 'Hard', score: 500 },
     ]
   },
   { 
@@ -139,11 +140,11 @@ export const mockContests: Contest[] = [
     problems: 5,
     description: "A mid-week brain teaser. 5 problems of increasing difficulty to keep your skills sharp.",
     contestProblems: [
-      { letter: 'A', title: 'Fizz Buzz', difficulty: 'Easy', score: 50 },
-      { letter: 'B', title: 'Group Anagrams', difficulty: 'Medium', score: 150 },
-      { letter: 'C', title: 'Word Break', difficulty: 'Medium', score: 200 },
-      { letter: 'D', title: 'Spiral Matrix', difficulty: 'Medium', score: 250 },
-      { letter: 'E', title: 'N-Queens', difficulty: 'Hard', score: 500 },
+      { letter: 'A', slug: 'fizz-buzz', title: 'Fizz Buzz', difficulty: 'Easy', score: 50 },
+      { letter: 'B', slug: 'group-anagrams', title: 'Group Anagrams', difficulty: 'Medium', score: 150 },
+      { letter: 'C', slug: 'word-break', title: 'Word Break', difficulty: 'Medium', score: 200 },
+      { letter: 'D', slug: 'spiral-matrix', title: 'Spiral Matrix', difficulty: 'Medium', score: 250 },
+      { letter: 'E', slug: 'n-queens', title: 'N-Queens', difficulty: 'Hard', score: 500 },
     ]
   },
   { 
@@ -158,14 +159,14 @@ export const mockContests: Contest[] = [
     problems: 8,
     description: "6 hours of pure Dynamic Programming. Can you master the state transitions?",
     contestProblems: [
-      { letter: 'A', title: 'Climbing Stairs', difficulty: 'Easy', score: 50 },
-      { letter: 'B', title: 'House Robber', difficulty: 'Medium', score: 100 },
-      { letter: 'C', title: 'Longest Palindromic Substring', difficulty: 'Medium', score: 150 },
-      { letter: 'D', title: 'Edit Distance', difficulty: 'Medium', score: 200 },
-      { letter: 'E', title: 'Longest Common Subsequence', difficulty: 'Medium', score: 250 },
-      { letter: 'F', title: 'Unique Paths II', difficulty: 'Medium', score: 300 },
-      { letter: 'G', title: 'Maximal Square', difficulty: 'Hard', score: 400 },
-      { letter: 'H', title: 'Burst Balloons', difficulty: 'Hard', score: 600 },
+      { letter: 'A', slug: 'climbing-stairs', title: 'Climbing Stairs', difficulty: 'Easy', score: 50 },
+      { letter: 'B', slug: 'house-robber', title: 'House Robber', difficulty: 'Medium', score: 100 },
+      { letter: 'C', slug: 'longest-palindromic', title: 'Longest Palindromic Substring', difficulty: 'Medium', score: 150 },
+      { letter: 'D', slug: 'edit-distance', title: 'Edit Distance', difficulty: 'Medium', score: 200 },
+      { letter: 'E', slug: 'lcs', title: 'Longest Common Subsequence', difficulty: 'Medium', score: 250 },
+      { letter: 'F', slug: 'unique-paths-ii', title: 'Unique Paths II', difficulty: 'Medium', score: 300 },
+      { letter: 'G', slug: 'maximal-square', title: 'Maximal Square', difficulty: 'Hard', score: 400 },
+      { letter: 'H', slug: 'burst-balloons', title: 'Burst Balloons', difficulty: 'Hard', score: 600 },
     ]
   },
   { 
@@ -180,10 +181,10 @@ export const mockContests: Contest[] = [
     problems: 4,
     description: "Weekly contest from last week. Review the problems and see how you would have performed.",
     contestProblems: [
-      { letter: 'A', title: 'Two Sum', difficulty: 'Easy', score: 50 },
-      { letter: 'B', title: 'Contain With Most Water', difficulty: 'Medium', score: 150 },
-      { letter: 'C', title: '3Sum', difficulty: 'Medium', score: 200 },
-      { letter: 'D', title: 'Trapping Rain Water', difficulty: 'Hard', score: 500 },
+      { letter: 'A', slug: 'two-sum', title: 'Two Sum', difficulty: 'Easy', score: 50 },
+      { letter: 'B', slug: 'container-most-water', title: 'Contain With Most Water', difficulty: 'Medium', score: 150 },
+      { letter: 'C', slug: 'three-sum', title: '3Sum', difficulty: 'Medium', score: 200 },
+      { letter: 'D', slug: 'trapping-rain-water', title: 'Trapping Rain Water', difficulty: 'Hard', score: 500 },
     ]
   },
   { 

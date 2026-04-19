@@ -27,6 +27,7 @@ import { Route as CertificatesRouteImport } from './routes/certificates'
 import { Route as AnnouncementsRouteImport } from './routes/announcements'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProblemsIndexRouteImport } from './routes/problems.index'
 import { Route as ContestIndexRouteImport } from './routes/contest.index'
 import { Route as ProblemsSlugRouteImport } from './routes/problems.$slug'
 import { Route as GameRapidfireRouteImport } from './routes/game_.rapidfire'
@@ -123,6 +124,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProblemsIndexRoute = ProblemsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProblemsRoute,
+} as any)
 const ContestIndexRoute = ContestIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -173,6 +179,7 @@ export interface FileRoutesByFullPath {
   '/game/rapidfire': typeof GameRapidfireRoute
   '/problems/$slug': typeof ProblemsSlugRoute
   '/contest/': typeof ContestIndexRoute
+  '/problems/': typeof ProblemsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -187,7 +194,6 @@ export interface FileRoutesByTo {
   '/game': typeof GameRoute
   '/interview': typeof InterviewRoute
   '/login': typeof LoginRoute
-  '/problems': typeof ProblemsRouteWithChildren
   '/profile': typeof ProfileRoute
   '/rapidfire': typeof RapidfireRoute
   '/redeem': typeof RedeemRoute
@@ -197,6 +203,7 @@ export interface FileRoutesByTo {
   '/game/rapidfire': typeof GameRapidfireRoute
   '/problems/$slug': typeof ProblemsSlugRoute
   '/contest': typeof ContestIndexRoute
+  '/problems': typeof ProblemsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -223,6 +230,7 @@ export interface FileRoutesById {
   '/game_/rapidfire': typeof GameRapidfireRoute
   '/problems/$slug': typeof ProblemsSlugRoute
   '/contest/': typeof ContestIndexRoute
+  '/problems/': typeof ProblemsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -250,6 +258,7 @@ export interface FileRouteTypes {
     | '/game/rapidfire'
     | '/problems/$slug'
     | '/contest/'
+    | '/problems/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -264,7 +273,6 @@ export interface FileRouteTypes {
     | '/game'
     | '/interview'
     | '/login'
-    | '/problems'
     | '/profile'
     | '/rapidfire'
     | '/redeem'
@@ -274,6 +282,7 @@ export interface FileRouteTypes {
     | '/game/rapidfire'
     | '/problems/$slug'
     | '/contest'
+    | '/problems'
   id:
     | '__root__'
     | '/'
@@ -299,6 +308,7 @@ export interface FileRouteTypes {
     | '/game_/rapidfire'
     | '/problems/$slug'
     | '/contest/'
+    | '/problems/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -452,6 +462,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/problems/': {
+      id: '/problems/'
+      path: '/'
+      fullPath: '/problems/'
+      preLoaderRoute: typeof ProblemsIndexRouteImport
+      parentRoute: typeof ProblemsRoute
+    }
     '/contest/': {
       id: '/contest/'
       path: '/'
@@ -505,10 +522,12 @@ const ContestRouteWithChildren =
 
 interface ProblemsRouteChildren {
   ProblemsSlugRoute: typeof ProblemsSlugRoute
+  ProblemsIndexRoute: typeof ProblemsIndexRoute
 }
 
 const ProblemsRouteChildren: ProblemsRouteChildren = {
   ProblemsSlugRoute: ProblemsSlugRoute,
+  ProblemsIndexRoute: ProblemsIndexRoute,
 }
 
 const ProblemsRouteWithChildren = ProblemsRoute._addFileChildren(

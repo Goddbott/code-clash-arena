@@ -12,6 +12,13 @@ export interface Problem {
   status: 'solved' | 'attempted' | 'unsolved';
 }
 
+export interface ContestProblem {
+  letter: string;
+  title: string;
+  difficulty: 'Easy' | 'Medium' | 'Hard';
+  score: number;
+}
+
 export interface Contest {
   id: number;
   name: string;
@@ -22,6 +29,8 @@ export interface Contest {
   type: 'Rated' | 'Unrated' | 'Special';
   status: 'upcoming' | 'ongoing' | 'ended';
   problems: number;
+  description: string;
+  contestProblems: ContestProblem[];
 }
 
 export interface User {
@@ -100,12 +109,118 @@ export const mockProblems: Problem[] = [
 ];
 
 export const mockContests: Contest[] = [
-  { id: 1, name: 'AlgoClash Weekly #42', startTime: '2026-04-20T14:00:00Z', endTime: '2026-04-20T16:00:00Z', duration: 120, registeredCount: 1243, type: 'Rated', status: 'upcoming', problems: 4 },
-  { id: 2, name: 'Biweekly Challenge #18', startTime: '2026-04-18T10:00:00Z', endTime: '2026-04-18T12:30:00Z', duration: 150, registeredCount: 876, type: 'Rated', status: 'upcoming', problems: 5 },
-  { id: 3, name: 'Spring Special: DP Marathon', startTime: '2026-04-15T08:00:00Z', endTime: '2026-04-15T14:00:00Z', duration: 360, registeredCount: 2100, type: 'Special', status: 'ongoing', problems: 8 },
-  { id: 4, name: 'AlgoClash Weekly #41', startTime: '2026-04-13T14:00:00Z', endTime: '2026-04-13T16:00:00Z', duration: 120, registeredCount: 1567, type: 'Rated', status: 'ended', problems: 4 },
-  { id: 5, name: 'Practice Round: Graphs', startTime: '2026-04-10T10:00:00Z', endTime: '2026-04-10T12:00:00Z', duration: 120, registeredCount: 450, type: 'Unrated', status: 'ended', problems: 3 },
-  { id: 6, name: 'AlgoClash Weekly #40', startTime: '2026-04-06T14:00:00Z', endTime: '2026-04-06T16:00:00Z', duration: 120, registeredCount: 1890, type: 'Rated', status: 'ended', problems: 4 },
+  { 
+    id: 1, 
+    name: 'AlgoClash Weekly #42', 
+    startTime: '2026-04-20T14:00:00Z', 
+    endTime: '2026-04-20T16:00:00Z', 
+    duration: 120, 
+    registeredCount: 1243, 
+    type: 'Rated', 
+    status: 'upcoming', 
+    problems: 4,
+    description: "Our signature weekly challenge. Solve 4 algorithmic problems in 2 hours to improve your rating.",
+    contestProblems: [
+      { letter: 'A', title: 'Running Sum of 1d Array', difficulty: 'Easy', score: 50 },
+      { letter: 'B', title: 'Shuffle the Array', difficulty: 'Easy', score: 100 },
+      { letter: 'C', title: 'Capacity To Ship Packages', difficulty: 'Medium', score: 200 },
+      { letter: 'D', title: 'Median of Two Sorted Arrays', difficulty: 'Hard', score: 500 },
+    ]
+  },
+  { 
+    id: 2, 
+    name: 'Biweekly Challenge #18', 
+    startTime: '2026-04-18T10:00:00Z', 
+    endTime: '2026-04-18T12:30:00Z', 
+    duration: 150, 
+    registeredCount: 876, 
+    type: 'Rated', 
+    status: 'upcoming', 
+    problems: 5,
+    description: "A mid-week brain teaser. 5 problems of increasing difficulty to keep your skills sharp.",
+    contestProblems: [
+      { letter: 'A', title: 'Fizz Buzz', difficulty: 'Easy', score: 50 },
+      { letter: 'B', title: 'Group Anagrams', difficulty: 'Medium', score: 150 },
+      { letter: 'C', title: 'Word Break', difficulty: 'Medium', score: 200 },
+      { letter: 'D', title: 'Spiral Matrix', difficulty: 'Medium', score: 250 },
+      { letter: 'E', title: 'N-Queens', difficulty: 'Hard', score: 500 },
+    ]
+  },
+  { 
+    id: 3, 
+    name: 'Spring Special: DP Marathon', 
+    startTime: '2026-04-15T08:00:00Z', 
+    endTime: '2026-04-15T14:00:00Z', 
+    duration: 360, 
+    registeredCount: 2100, 
+    type: 'Special', 
+    status: 'ongoing', 
+    problems: 8,
+    description: "6 hours of pure Dynamic Programming. Can you master the state transitions?",
+    contestProblems: [
+      { letter: 'A', title: 'Climbing Stairs', difficulty: 'Easy', score: 50 },
+      { letter: 'B', title: 'House Robber', difficulty: 'Medium', score: 100 },
+      { letter: 'C', title: 'Longest Palindromic Substring', difficulty: 'Medium', score: 150 },
+      { letter: 'D', title: 'Edit Distance', difficulty: 'Medium', score: 200 },
+      { letter: 'E', title: 'Longest Common Subsequence', difficulty: 'Medium', score: 250 },
+      { letter: 'F', title: 'Unique Paths II', difficulty: 'Medium', score: 300 },
+      { letter: 'G', title: 'Maximal Square', difficulty: 'Hard', score: 400 },
+      { letter: 'H', title: 'Burst Balloons', difficulty: 'Hard', score: 600 },
+    ]
+  },
+  { 
+    id: 4, 
+    name: 'AlgoClash Weekly #41', 
+    startTime: '2026-04-13T14:00:00Z', 
+    endTime: '2026-04-13T16:00:00Z', 
+    duration: 120, 
+    registeredCount: 1567, 
+    type: 'Rated', 
+    status: 'ended', 
+    problems: 4,
+    description: "Weekly contest from last week. Review the problems and see how you would have performed.",
+    contestProblems: [
+      { letter: 'A', title: 'Two Sum', difficulty: 'Easy', score: 50 },
+      { letter: 'B', title: 'Contain With Most Water', difficulty: 'Medium', score: 150 },
+      { letter: 'C', title: '3Sum', difficulty: 'Medium', score: 200 },
+      { letter: 'D', title: 'Trapping Rain Water', difficulty: 'Hard', score: 500 },
+    ]
+  },
+  { 
+    id: 5, 
+    name: 'Practice Round: Graphs', 
+    startTime: '2026-04-10T10:00:00Z', 
+    endTime: '2026-04-10T12:00:00Z', 
+    duration: 120, 
+    registeredCount: 450, 
+    type: 'Unrated', 
+    status: 'ended', 
+    problems: 3,
+    description: "Focus on Graph theory. BFS, DFS, and Dijkstra's algorithm challenges.",
+    contestProblems: [
+      { letter: 'A', title: 'Number of Islands', difficulty: 'Medium', score: 100 },
+      { letter: 'B', title: 'Course Schedule', difficulty: 'Medium', score: 200 },
+      { letter: 'C', title: 'Word Ladder', difficulty: 'Hard', score: 400 },
+    ]
+  },
+  { 
+    id: 6, 
+    name: 'AlgoClash Weekly #40', 
+    startTime: '2026-04-06T14:00:00Z', 
+    endTime: '2026-04-06T16:00:00Z', 
+    duration: 120, 
+    registeredCount: 1890, 
+    type: 'Rated', 
+    status: 'ended', 
+    problems: 4,
+    description: "Historical weekly contest. Great for practice and interview preparation.",
+    contestProblems: [
+      { letter: 'A', title: 'Valid Parentheses', difficulty: 'Easy', score: 50 },
+      { letter: 'B', title: 'Merge k Sorted Lists', difficulty: 'Hard', score: 400 },
+      { letter: 'C', title: 'Reverse Nodes in k-Group', difficulty: 'Hard', score: 500 },
+      { letter: 'D', title: 'Longest Valid Parentheses', difficulty: 'Hard', score: 600 },
+    ]
+  },
 ];
 
 export const mockUser: User = {

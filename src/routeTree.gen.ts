@@ -27,9 +27,11 @@ import { Route as CertificatesRouteImport } from './routes/certificates'
 import { Route as AnnouncementsRouteImport } from './routes/announcements'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ContestIndexRouteImport } from './routes/contest.index'
 import { Route as ProblemsSlugRouteImport } from './routes/problems.$slug'
 import { Route as GameRapidfireRouteImport } from './routes/game_.rapidfire'
 import { Route as GameDuelRouteImport } from './routes/game_.duel'
+import { Route as ContestIdRouteImport } from './routes/contest.$id'
 
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
@@ -121,6 +123,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContestIndexRoute = ContestIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ContestRoute,
+} as any)
 const ProblemsSlugRoute = ProblemsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -136,6 +143,11 @@ const GameDuelRoute = GameDuelRouteImport.update({
   path: '/game/duel',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContestIdRoute = ContestIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ContestRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -143,7 +155,7 @@ export interface FileRoutesByFullPath {
   '/announcements': typeof AnnouncementsRoute
   '/certificates': typeof CertificatesRoute
   '/chat': typeof ChatRoute
-  '/contest': typeof ContestRoute
+  '/contest': typeof ContestRouteWithChildren
   '/discussion': typeof DiscussionRoute
   '/documents': typeof DocumentsRoute
   '/duel': typeof DuelRoute
@@ -156,9 +168,11 @@ export interface FileRoutesByFullPath {
   '/rapidfire': typeof RapidfireRoute
   '/redeem': typeof RedeemRoute
   '/register': typeof RegisterRoute
+  '/contest/$id': typeof ContestIdRoute
   '/game/duel': typeof GameDuelRoute
   '/game/rapidfire': typeof GameRapidfireRoute
   '/problems/$slug': typeof ProblemsSlugRoute
+  '/contest/': typeof ContestIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -166,7 +180,6 @@ export interface FileRoutesByTo {
   '/announcements': typeof AnnouncementsRoute
   '/certificates': typeof CertificatesRoute
   '/chat': typeof ChatRoute
-  '/contest': typeof ContestRoute
   '/discussion': typeof DiscussionRoute
   '/documents': typeof DocumentsRoute
   '/duel': typeof DuelRoute
@@ -179,9 +192,11 @@ export interface FileRoutesByTo {
   '/rapidfire': typeof RapidfireRoute
   '/redeem': typeof RedeemRoute
   '/register': typeof RegisterRoute
+  '/contest/$id': typeof ContestIdRoute
   '/game/duel': typeof GameDuelRoute
   '/game/rapidfire': typeof GameRapidfireRoute
   '/problems/$slug': typeof ProblemsSlugRoute
+  '/contest': typeof ContestIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -190,7 +205,7 @@ export interface FileRoutesById {
   '/announcements': typeof AnnouncementsRoute
   '/certificates': typeof CertificatesRoute
   '/chat': typeof ChatRoute
-  '/contest': typeof ContestRoute
+  '/contest': typeof ContestRouteWithChildren
   '/discussion': typeof DiscussionRoute
   '/documents': typeof DocumentsRoute
   '/duel': typeof DuelRoute
@@ -203,9 +218,11 @@ export interface FileRoutesById {
   '/rapidfire': typeof RapidfireRoute
   '/redeem': typeof RedeemRoute
   '/register': typeof RegisterRoute
+  '/contest/$id': typeof ContestIdRoute
   '/game_/duel': typeof GameDuelRoute
   '/game_/rapidfire': typeof GameRapidfireRoute
   '/problems/$slug': typeof ProblemsSlugRoute
+  '/contest/': typeof ContestIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -228,9 +245,11 @@ export interface FileRouteTypes {
     | '/rapidfire'
     | '/redeem'
     | '/register'
+    | '/contest/$id'
     | '/game/duel'
     | '/game/rapidfire'
     | '/problems/$slug'
+    | '/contest/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -238,7 +257,6 @@ export interface FileRouteTypes {
     | '/announcements'
     | '/certificates'
     | '/chat'
-    | '/contest'
     | '/discussion'
     | '/documents'
     | '/duel'
@@ -251,9 +269,11 @@ export interface FileRouteTypes {
     | '/rapidfire'
     | '/redeem'
     | '/register'
+    | '/contest/$id'
     | '/game/duel'
     | '/game/rapidfire'
     | '/problems/$slug'
+    | '/contest'
   id:
     | '__root__'
     | '/'
@@ -274,9 +294,11 @@ export interface FileRouteTypes {
     | '/rapidfire'
     | '/redeem'
     | '/register'
+    | '/contest/$id'
     | '/game_/duel'
     | '/game_/rapidfire'
     | '/problems/$slug'
+    | '/contest/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -285,7 +307,7 @@ export interface RootRouteChildren {
   AnnouncementsRoute: typeof AnnouncementsRoute
   CertificatesRoute: typeof CertificatesRoute
   ChatRoute: typeof ChatRoute
-  ContestRoute: typeof ContestRoute
+  ContestRoute: typeof ContestRouteWithChildren
   DiscussionRoute: typeof DiscussionRoute
   DocumentsRoute: typeof DocumentsRoute
   DuelRoute: typeof DuelRoute
@@ -430,6 +452,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contest/': {
+      id: '/contest/'
+      path: '/'
+      fullPath: '/contest/'
+      preLoaderRoute: typeof ContestIndexRouteImport
+      parentRoute: typeof ContestRoute
+    }
     '/problems/$slug': {
       id: '/problems/$slug'
       path: '/$slug'
@@ -451,8 +480,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GameDuelRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contest/$id': {
+      id: '/contest/$id'
+      path: '/$id'
+      fullPath: '/contest/$id'
+      preLoaderRoute: typeof ContestIdRouteImport
+      parentRoute: typeof ContestRoute
+    }
   }
 }
+
+interface ContestRouteChildren {
+  ContestIdRoute: typeof ContestIdRoute
+  ContestIndexRoute: typeof ContestIndexRoute
+}
+
+const ContestRouteChildren: ContestRouteChildren = {
+  ContestIdRoute: ContestIdRoute,
+  ContestIndexRoute: ContestIndexRoute,
+}
+
+const ContestRouteWithChildren =
+  ContestRoute._addFileChildren(ContestRouteChildren)
 
 interface ProblemsRouteChildren {
   ProblemsSlugRoute: typeof ProblemsSlugRoute
@@ -472,7 +521,7 @@ const rootRouteChildren: RootRouteChildren = {
   AnnouncementsRoute: AnnouncementsRoute,
   CertificatesRoute: CertificatesRoute,
   ChatRoute: ChatRoute,
-  ContestRoute: ContestRoute,
+  ContestRoute: ContestRouteWithChildren,
   DiscussionRoute: DiscussionRoute,
   DocumentsRoute: DocumentsRoute,
   DuelRoute: DuelRoute,
